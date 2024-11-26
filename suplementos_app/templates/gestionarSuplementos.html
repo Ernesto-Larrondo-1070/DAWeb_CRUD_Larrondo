@@ -1,0 +1,83 @@
+{% extends "base2.html" %}
+
+{% block cuerpo %}
+
+    <div class="row"> <!-- la filas-->
+    <div class="col-sm-12 col-md-4 col-lg-4 xl-4"> <!-- Columna izquierda-->
+        <h1> Suplementos </h1>
+        <div class="card"><!-- tarjeta-->
+          <div class="card-body">
+            <form action="registrarSuplemento/" method="post"> {% csrf_token %}<!-- -->
+              <div class="form-group">
+                <input type="text" id="txtid" name="txtid" placeholder="ID del Suplemento" class="form-control" minlenght="1" maxlenght="6" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtnombre" name="txtnombre" placeholder="Nombre Suplemento" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txttipo" name="txttipo" placeholder="Tipo Suplemento" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group">
+                <input type="text" id="txtsabor" name="txtsabor" placeholder="Sabor Suplemento" class="form-control" min="1" max="9" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="numprecio" name="numprecio" placeholder="Precio Suplemento" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="numpeso" name="numpeso" placeholder="Peso Suplemento" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group py-3">
+                <button type="submit" class="btn btn-dark"> Guardar Producto </button><br>
+              </div>
+            </form>
+          </div>
+        </div><!-- tarjeta-->
+    </div><!-- Columna izquierda-->
+
+    <div class="col-sm-12 col-md-8 col-lg-8 xl-8"> <!-- Columna derecha -->
+        <h1> Listado De Suplementos </h1>
+        <!-- La tabla -->
+        <table class="table table-striped">
+            <thead>
+              <tr class="table">
+                <th scope="col">Id_Suplemento </th>
+                <th scope="col">Nombre </th>
+                <th scope="col">Tipo </th>
+                <th scope="col">Sabor </th>
+                <th scope="col">Precio </th>
+                <th scope="col">Peso </th>
+                <th> Opciones </th>
+                <th>  </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for m in misupl %}
+              <tr class="table">
+                <td>
+                  {{m.id_producto}}
+                </td>
+                <td>
+                  {{m.nombre}}
+                </td>
+                <td>
+                  {{m.tipo}}
+                </td>
+                <td>
+                  {{m.sabor}}
+                </td>
+                <td>
+                    {{m.precio_uni}}
+                </td>
+                <td>
+                    {{m.peso}}
+                </td>
+                <td> <a href="seleccionarSuplemento/{{m.id_producto}}" class="btn btn-info"> Editar </a> </td> <!--Falta-->
+                <td> <a href="borrarSuplemento/{{m.id_producto}}" class="btn btn-danger"> Borrar </a> </td> <!--Falta-->
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        <!-- La tabla -->
+    </div><!-- Columna derecha -->
+    </div>
+{% endblock %}
