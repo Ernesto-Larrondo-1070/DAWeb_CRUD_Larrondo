@@ -1,0 +1,89 @@
+{% extends "base2.html" %}
+{% load static %}
+{% block cuerpo %}
+
+    <div class="row"> <!-- la filas-->
+    <div class="col-sm-12 col-md-4 col-lg-4 xl-4"> <!-- Columna izquierda-->
+        <h1> Ventas  </h1>
+        <div class="card"><!-- tarjeta-->
+          <div class="card-body">
+            <form action="registrarVenta/" method="post"> {% csrf_token %}<!-- -->
+              <div class="form-group">
+                <input type="text" id="txtid" name="txtid" placeholder="ID Venta" class="form-control" minlenght="1" maxlenght="6" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtidprod" name="txtidprod" placeholder="ID Producto" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group">
+                <input type="text" id="txtidcl" name="txtidcl" placeholder="Cliente" class="form-control" min="1" max="9" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtprecio" name="txtprecio" placeholder="Precio Venta" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtcantidad" name="txtcantidad" placeholder="Cantidad Venta" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group">
+                <input type="text" id="txtgr" name="txtgr" placeholder="Gramos(gr) o Kilogramos(kg)" class="form-control" min="1" max="9" required><br>
+              </div>
+              <div class="form-group">
+                <input type="text" id="txtserv" name="txtserv" placeholder="Servicios" class="form-control" min="1" max="9" required><br>
+              </div>
+              <div class="form-group py-3">
+                <button type="submit" class="btn btn-dark"> Guardar Venta </button><br>
+              </div>
+            </form>
+          </div>
+        </div><!-- tarjeta-->
+    </div><!-- Columna izquierda-->
+
+    <div class="col-sm-12 col-md-8 col-lg-8 xl-8"> <!-- Columna derecha -->
+        <h1> Listado De Ventas </h1>
+        <!-- La tabla -->
+        <table class="table table-striped">
+            <thead>
+              <tr class="table">
+                <th scope="col">Id_Venta </th>
+                <th scope="col">Id_Producto </th>
+                <th scope="col">Cliente </th>
+                <th scope="col">Precio </th>
+                <th scope="col">Cantidad de Venta </th>
+                <th scope="col"> Peso </th>
+                <th scope="col">Servicios </th>
+                <th> Opciones </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for m in misv %}
+              <tr class="table">
+                <td>
+                  {{m.id_venta}}
+                </td>
+                <td>
+                  {{m.id_prod}}
+                </td>
+                <td>
+                  {{m.cliente}}
+                </td>
+                <td>
+                    {{m.precio}}
+                </td>
+                <td>
+                    {{m.cantidad}}
+                </td>
+                <td>
+                  {{m.gr_kg}}
+                </td> 
+                <td>
+                  {{m.servicios}}
+                </td> 
+                <td> <a href="seleccionarVenta/{{m.id_venta}}" class="btn btn-info"> Editar </a> </td> <!--Falta-->
+                <td> <a href="borrarVenta/{{m.id_venta}}" class="btn btn-danger"> Borrar </a> </td> <!--Falta-->
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        <!-- La tabla -->
+    </div><!-- Columna derecha -->
+    </div>
+{% endblock %}
